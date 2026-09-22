@@ -9,11 +9,19 @@ CREATE TABLE users(
   FOREIGN KEY (user_videos_id) REFERENCES user_videos(id)
 );
 
+CREATE TABLE user(
+  id INTEGER PRIMARY KEY AUTOINCREMENT
+);
+
 CREATE TABLE videos(
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   user_videos_id INTEGER,
   
   FOREIGN KEY (user_videos_id) REFERENCES user_videos(id)
+);
+
+CREATE TABLE video(
+  id INTEGER PRIMARY KEY AUTOINCREMENT
 );
 
 CREATE TABLE watch_history(
@@ -43,4 +51,45 @@ CREATE TABLE comments(
   content TEXT NOT NULL,
   FOREIGN KEY (videos_id) REFERENCES videos(id),
   FOREIGN KEY (user_id) REFERENCES user(id)
+);
+
+CREATE TABLE categories(
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name varchar(100) NOT NULL UNIQUE,
+  
+  FOREIGN KEY (videos_id) REFERENCES videos(id)
+);
+
+CREATE TABLE playlist(
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  users_id INTEGER,
+  FOREIGN KEY (users_id) REFERENCES users(id)
+);
+
+CREATE TABLE department(
+  id INTEGER PRIMARY KEY AUTOINCREMENT
+);
+
+CREATE TABLE moderators(
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  video_id INTEGER,
+  FOREIGN KEY (video_id) REFERENCES video(id)
+);
+
+CREATE TABLE user_notification(
+  user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  FOREIGN KEY (user_id) REFERENCES user(id)
+);
+
+CreATE TABLE user_subscribe(
+  user_notification INTEGER PRIMARY KEY AUTOINCREMENT,
+  FOREIGN KEY (user_id) REFERENCES notification(id)
+);
+
+CREATE TABLE CHANNEL(
+  id INTEGER PRIMARY KEY AUTOINCREMENT
+);
+
+CREATE TABLE user_channel(
+  id INTEGER PRIMARY KEY AUTOINCREMENT
 )
